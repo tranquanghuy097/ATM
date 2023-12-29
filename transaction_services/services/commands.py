@@ -18,12 +18,12 @@ class BaseCommand():
 
 
 class CheckBalance(BaseCommand):
-    def execute(self, owner: str):
+    def execute(self, code: str):
         try:
             with self.session_maker() as session:
                 return session.query(bank_account.BankAccountRead)\
-                    .filter(bank_account.BankAccountRead.owner == owner)\
+                    .filter(bank_account.BankAccountRead.code == code)\
                     .first()
         except exc.NoResultFound:
-            print("Account belongs to {} not found".format(owner))
+            print("Account belongs to {} not found".format(code))
             return

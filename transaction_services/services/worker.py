@@ -10,13 +10,13 @@ class TransactionType(enum.Enum):
 class TransactionWorker:
     def __init__(self, state: TransactionType,
                  session_maker: orm.sessionmaker[orm.Session],
-                 owner: str) -> None:
+                 code: str) -> None:
         self.__state = state
         self.__session_maker = session_maker
-        self.__owner = owner
+        self.__code = code
 
     def execute(self):
         if self.__state == TransactionType.CHECK_BALANCE:
             return commands.CheckBalance(self.__session_maker)\
-                .execute(self.__owner)
+                .execute(self.__code)
         return

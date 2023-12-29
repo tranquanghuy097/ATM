@@ -12,15 +12,19 @@ class BankAccountRead(base.Base):
     id: orm.Mapped[str] = orm.mapped_column(guid.GUID,
                                             primary_key=True,
                                             default=uuid.uuid4)
-    owner: orm.Mapped[str] = orm.mapped_column(sql.String,
-                                               nullable=False)
+    code: orm.Mapped[str] = orm.mapped_column(sql.String,
+                                              nullable=False,
+                                              unique=True)
     balance: orm.Mapped[int] = orm.mapped_column(sql.Integer,
                                                  default=0)
     frozen: orm.Mapped[bool] = orm.mapped_column(sql.Boolean,
                                                  default=False)
 
     def __repr__(self) -> str:
-        return "{} - {}".format(self.id, self.owner)
+        return "{} - {}".format(self.id, self.code)
+
+    def __eq__(self, __value: object) -> bool:
+        return self.code == __value.code
 
 
 class BankAccountWrite(base.Base):
@@ -29,13 +33,16 @@ class BankAccountWrite(base.Base):
     id: orm.Mapped[str] = orm.mapped_column(guid.GUID,
                                             primary_key=True,
                                             default=uuid.uuid4)
-    owner: orm.Mapped[str] = orm.mapped_column(sql.String,
-                                               nullable=False,
-                                               unique=True)
+    code: orm.Mapped[str] = orm.mapped_column(sql.String,
+                                              nullable=False,
+                                              unique=True)
     balance: orm.Mapped[int] = orm.mapped_column(sql.Integer,
                                                  default=0)
     frozen: orm.Mapped[bool] = orm.mapped_column(sql.Boolean,
                                                  default=False)
 
     def __repr__(self) -> str:
-        return "{} - {}".format(self.id, self.owner)
+        return "{} - {}".format(self.id, self.code)
+
+    def __eq__(self, __value: object) -> bool:
+        return self.code == __value.code
