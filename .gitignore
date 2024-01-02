@@ -1,0 +1,3 @@
+*.pyc
+*.db
+transaction_services/.vscode/settings.json
