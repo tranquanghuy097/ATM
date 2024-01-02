@@ -1,3 +1,4 @@
-*.pyc
+__pycache__/
 *.db
-transaction_services/.vscode/settings.json
+.vscode/
+.pytest_cache
