@@ -41,6 +41,10 @@ def mock_account_write():
             code='1234567',
             balance=500
         ),
+        bank_account.BankAccountWrite(
+            code='8765432',
+            balance=100
+        ),
     ]
 
 
