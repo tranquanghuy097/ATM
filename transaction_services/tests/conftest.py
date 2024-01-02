@@ -32,3 +32,24 @@ def setup_teardown_read(session_maker: orm.sessionmaker[orm.Session],
         yield
         session.query(bank_account.BankAccountRead).delete()
         session.commit()
+
+
+@pytest.fixture
+def mock_account_write():
+    return [
+        bank_account.BankAccountWrite(
+            code='1234567',
+            balance=500
+        ),
+    ]
+
+
+@pytest.fixture
+def setup_teardown_write(session_maker: orm.sessionmaker[orm.Session],
+                         mock_account_write: list[bank_account.BankAccountWrite]):   # noqa: E501
+    with session_maker() as session:
+        session.add_all(mock_account_write)
+        session.commit()
+        yield
+        session.query(bank_account.BankAccountWrite).delete()
+        session.commit()
