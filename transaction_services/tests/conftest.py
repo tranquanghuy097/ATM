@@ -3,9 +3,9 @@ from sqlalchemy import orm
 import sys
 sys.path.append('../transaction_services')
 
-import models.account as bank_account  # noqa: E402
-import models.base as base   # noqa: E402
-import db.db_factory as db  # noqa: E402
+import models.account as bank_account
+import models.base as base
+import db.db_factory as db
 
 
 @pytest.fixture
@@ -50,7 +50,7 @@ def mock_account_write():
 
 @pytest.fixture
 def setup_teardown_write(session_maker: orm.sessionmaker[orm.Session],
-                         mock_account_write: list[bank_account.BankAccountWrite]):   # noqa: E501
+                         mock_account_write: list[bank_account.BankAccountWrite]):
     with session_maker() as session:
         session.add_all(mock_account_write)
         session.commit()
